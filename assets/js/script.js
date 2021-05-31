@@ -16,7 +16,6 @@ var selectCriteria = function () {
   passwordObj.char = window.prompt(
     "How many characters would you like your password to be? Select a number between 8 and 128."
   );
-  console.log("char: " + passwordObj.char);
 
   // validation: min 8, min 128
   if (passwordObj.char >= 8 && passwordObj.char <= 128) {
@@ -67,8 +66,13 @@ var selectCriteria = function () {
           passwordObj.special
       );
     }
-  } else {
-    char = window.alert("You did not enter a valid number. Please try again.");
+  } else if (!passwordObj.char) {
+    window.alert(
+      "Welcome to Password Generator. Please answer the following prompts to get started."
+    );
+    return selectCriteria();
+  }  else {
+    window.alert("You did not enter a valid number. Please try again.");
     return selectCriteria();
   }
 };

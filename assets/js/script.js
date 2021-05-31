@@ -2,18 +2,19 @@
 
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
-
-// select password criteria
-var selectCriteria = function () {
-  var passwordObj = [
-    {
+var passwordObj = [
+  {
     char: 0,
     lower: false,
     upper: false,
     numeric: false,
-    special: false
-    }
-  ];
+    special: false,
+  },
+];
+
+// select password criteria
+var selectCriteria = function () {
+
   /*var char = 0;
   var lower = false;
   var upper = false;
@@ -22,7 +23,7 @@ var selectCriteria = function () {
 
   // first prompt: # of characters (min 8, min 128)
   passwordObj.char = window.prompt(
-    "How many characters would you like your password to be? Select a number between 8 and 28."
+    "How many characters would you like your password to be? Select a number between 8 and 128."
   );
   console.log("char: " + passwordObj.char);
 
@@ -64,27 +65,104 @@ var selectCriteria = function () {
       );
       return selectCriteria();
     }
-    generatePassword(passwordObj);
+    window.alert("Your password is ready to go. Click 'Generate Password' to proceed.");
   } else {
     char = window.alert("You did not enter a valid number. Please try again.");
     return selectCriteria();
   }
-};
+}
 
 // Write password to the #password input
-function writePassword() {
-  var password = generatePassword();
+var writePassword = function(Obj) {
+  console.log("generate password button clicked");
+  var password = generatePassword(Obj);
   var passwordText = document.querySelector("#password");
 
   passwordText.value = password;
 }
 
-function generatePassword(char, lower, upper, numeric, special) {}
+function generatePassword(Obj) {
+  var passwordArray = [];
+  var password = "";
+  var specialCharArray = [
+    "~",
+    "`",
+    "!",
+    "@",
+    "#",
+    "$",
+    "%",
+    "^",
+    "&",
+    "*",
+    "(",
+    ")",
+    "_",
+    "-",
+    "+",
+    "=",
+    "{",
+    "[",
+    "}",
+    "]",
+    "|",
+    ":",
+    ";",
+    ",",
+    "'",
+    "''",
+    "<",
+    ",",
+    ">",
+    ".",
+    "?",
+    "/",
+  ];
+
+  for (var i = 0; i < Obj.char; i++) {
+    var charType = Math.floor(Math.random() * (4 - 1 + 1) + 1);
+    console.log("char type: " + charType);
+
+    if (charType == 1 && Obj.lower == true) {
+      charRandom = Math.floor(Math.random() * (122 - 97 + 1) + 97);
+      console.log("random char: " + charRandom);
+      var passwordChar = String.fromCharCode(charRandom);
+      passwordArray.push(passwordChar);
+      console.log("lower: " + passwordChar);
+    } else if (charType == 2 && Obj.upper == true) {
+      charRandom = Math.floor(Math.random() * (90 - 65 + 1) + 65);
+      console.log("random char: " + charRandom);
+      var passwordChar = String.fromCharCode(charRandom);
+      passwordArray.push(passwordChar);
+      console.log("lower: " + passwordChar);
+    } else if (charType == 3 && Obj.numeric == true) {
+      charRandom = Math.floor(Math.random() * (57 - 48 + 1) + 48);
+      console.log("random char: " + charRandom);
+      var passwordChar = String.fromCharCode(charRandom);
+      passwordArray.push(passwordChar);
+      console.log("lower: " + passwordChar);
+    } else if (charType == 4 && Obj.special == true) {
+      charRandom = Math.floor(
+        Math.random() * (specialCharArray.length - 1 - 0 + 1) + 0
+      );
+      console.log("random char: " + charRandom);
+      var passwordChar = specialCharArray[charRandom];
+      passwordArray.push(passwordChar);
+      console.log("lower: " + passwordChar);
+    } else {
+      i -= 1;
+    }
+  }
+    password = passwordArray.join('');
+    console.log("random password: " + password);
+    return (password);
+}
 
 // generate password based on criteria
-//selectCriteria();
+window.alert("Welcome to Password Generator. Click on the GENERATE PASSWORD to get started.");
 
 // display password on page
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", selectCriteria());
+//generateBtn.addEventListener("click", writePassword(passwordObj));

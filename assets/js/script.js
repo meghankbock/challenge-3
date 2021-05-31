@@ -54,7 +54,7 @@ var selectCriteria = function () {
     } else {
       // display selected criteria to user and ask to confirm
       window.alert(
-        "Your password is ready to go. Please review the criteria you selected. If everything looks good, click on the GENERATE PASSWORD button to create your password. Otherwise, refresh the page to start over. \n\nNumber of Characters: " +
+        "Your password is ready to go. Please review the criteria you selected. If everything looks good, click OK and then click on the GENERATE PASSWORD button to create your password. Otherwise, refresh the page to start over. \n\nNumber of Characters: " +
           passwordObj.char +
           "\nLowercase Characters Included? " +
           passwordObj.lower +
@@ -66,11 +66,6 @@ var selectCriteria = function () {
           passwordObj.special
       );
     }
-  } else if (!passwordObj.char) {
-    window.alert(
-      "Welcome to Password Generator. Please answer the following prompts to get started."
-    );
-    return selectCriteria();
   }  else {
     window.alert("You did not enter a valid number. Please try again.");
     return selectCriteria();
